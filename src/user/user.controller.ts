@@ -1,9 +1,15 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+
 @Controller('user')
 export class UserController {
-  constructor(private configService: ConfigService) {
-    this.configService = configService;
-    console.log(this.configService.get('ENV'), this.configService.get('PORT'));
+  constructor(
+    private configService: ConfigService,
+    private logger: Logger,
+  ) {
+    this.logger.log(
+      this.configService.get('ENV') + ' ' + this.configService.get('PORT'),
+    );
+    this.logger.log({ say: 'haha' });
   }
 }

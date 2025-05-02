@@ -1,17 +1,14 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
-const envFilePath = [`.env.${process.env.NODE_ENV ?? 'development'}`, '.env'];
+
+import { ConfigModule } from './common/config/config.module';
+import { LoggerModule } from './common/logger/logger.module';
+import { GlobalExceptionModule } from './common/filters/global-exception.module';
+
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: envFilePath,
-    }),
-    UserModule,
-  ],
+  imports: [UserModule, ConfigModule, LoggerModule, GlobalExceptionModule],
   controllers: [AppController],
   // providers 告诉nest->把下面的class类放到你的DI中进行初始化
   providers: [AppService],
