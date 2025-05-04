@@ -7,6 +7,8 @@ import { ConfigModule } from './common/config/config.module';
 import { LoggerModule } from './common/logger/logger.module';
 import { GlobalExceptionModule } from './common/filters/global-exception.module';
 import { CacheModule } from './common/cache/cache.module';
+import { MailModule } from './common/mail/mail.module';
+import { TypeormModule } from './database/typeorm/typeorm.module';
 
 @Module({
   imports: [
@@ -15,6 +17,8 @@ import { CacheModule } from './common/cache/cache.module';
     LoggerModule,
     GlobalExceptionModule,
     CacheModule,
+    MailModule,
+    TypeormModule,
   ],
   controllers: [AppController],
   // providers 告诉nest->把下面的class类放到你的DI中进行初始化
