@@ -4,6 +4,8 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   ManyToOne,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 @Entity()
@@ -12,10 +14,50 @@ export class User {
   id: number;
 
   @Column()
-  firstName: string;
+  name: string;
+
+  @Column()
+  password: string;
+
+  @ManyToMany(() => Role, (role) => role.users, { cascade: true })
+  roles: Role[];
 
   @OneToMany(() => Photo, (photo) => photo.user, { cascade: true })
   photos: Photo[];
+}
+
+@Entity()
+export class Role {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  name: string;
+
+  @ManyToMany(() => User, (user) => user.roles)
+  @JoinTable()
+  users: User[];
+
+  @ManyToMany(() => Permission, (permission) => permission.roles, {
+    cascade: true,
+  })
+  permissions: Permission[];
+}
+
+@Entity()
+export class Permission {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  name: string;
+
+  @Column('simple-array')
+  action: [];
+
+  @ManyToMany(() => Role, (role) => role.permissions)
+  @JoinTable()
+  roles: Role[];
 }
 
 @Entity()

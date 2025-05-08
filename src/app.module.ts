@@ -9,6 +9,9 @@ import { GlobalExceptionModule } from './common/filters/global-exception.module'
 import { CacheModule } from './common/cache/cache.module';
 import { MailModule } from './common/mail/mail.module';
 import { TypeormModule } from './database/typeorm/typeorm.module';
+import { ValidatorModule } from './common/validator/validator.module';
+import { AuthModule } from './common/auth/auth.module';
+import { NormalizeModule } from './common/normalize/normalize.module';
 
 @Module({
   imports: [
@@ -19,6 +22,9 @@ import { TypeormModule } from './database/typeorm/typeorm.module';
     CacheModule,
     MailModule,
     TypeormModule,
+    ValidatorModule,
+    AuthModule,
+    NormalizeModule,
   ],
   controllers: [AppController],
   // providers 告诉nest->把下面的class类放到你的DI中进行初始化
